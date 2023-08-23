@@ -4,4 +4,4 @@
 
 ## git
 
-- [링크](./git/READ.md)
+- [링크](./git/README.md)
