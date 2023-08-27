@@ -87,6 +87,10 @@
     3. **--soft** : 변경 이력 모두 삭제하지만 변경 내용은 남고 stage 상태로 둠
         - `git reset --soft [commit hash1]` : 변경 이력은 삭제되지만 코드는 stage 상태로 남음 (git add 필요 X)
 
+  ##### **reset --hard**로 잘못 삭제한 커밋 되살리기 : `git reflog`
+    1. `git reflog` : 이전 커밋 목록 모두 출력
+    2. `git checkout [commit hash]` : 복원하고 싶은 커밋 해시 체크 아웃
+
   ### Revert
     - 커밋을 되돌리는 명령어 (단, 다른 사람과 코드를 공유한 경우 되돌릴 때 사용)
     - **revert 시 해당 커밋의 내용만 삭제**
