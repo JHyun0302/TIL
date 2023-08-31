@@ -12,6 +12,7 @@
         - 이 외에도 VSCode에 Extension을 설치해 gitignore 파일을 관리하기도 함
 
   ## 브랜치
+  - 
     - branch: (영한사전 정의)나뭇가지
     - (일반적으로) 일감을 해결할 때 일감에 해당하는 이슈를 만들고, 이슈에 해당하는 브랜치를 생성함
 
@@ -53,6 +54,7 @@
     - 문제 : B 브랜치에 커밋 내용을 A 브랜치로 가져오고 싶음
 
     - **Cherry-pick** : `git cherry-pick <commit hash>`
+    - 단, A 브랜치에서 실행 할 것!
     - 여러 커밋 한번에 반영
         1. `git cherry-pick <commit hash1> <commit hash2> <commit hash3>`
         2. `git cherry-pick <commit hash1>...<commit hash3>`
@@ -87,7 +89,7 @@
     3. **--soft** : 변경 이력 모두 삭제하지만 변경 내용은 남고 stage 상태로 둠
         - `git reset --soft [commit hash1]` : 변경 이력은 삭제되지만 코드는 stage 상태로 남음 (git add 필요 X)
 
-  ##### **reset --hard**로 잘못 삭제한 커밋 되살리기 : `git reflog`
+  ### **reset --hard**로 잘못 삭제한 커밋 되살리기 : `git reflog`
     1. `git reflog` : 이전 커밋 목록 모두 출력
     2. `git checkout [commit hash]` : 복원하고 싶은 커밋 해시 체크 아웃
 
@@ -127,3 +129,22 @@
   #### Rebase 단점 아닌 단점 : **A 브랜치 각각의 커밋마다 충돌을 해결해야 함**
     - 머지는 충돌 발생시 1번만에 처리 가능하지만 Rebase는 커밋 전체를 옮기기 때문에 각각의 커밋마다 충돌을 해결해야함.
     - 하지만, 어느 커밋에서 충돌난지 모른채 하나의 커밋으로 충돌을 해결하는 것은 오히려 독이 될 수 있다.
+
+  ### Stash : 아직 마무리되지 않은 작업을 스택에 잠시 저장하는 명령어
+    - 예제 시나리오 : A 브랜치에서 작업 하던 중 main 브랜치에 에러 발생해서 main 브랜치로 이동해야 함
+    - A 브랜치에서 : `git stash`
+    - `git checkout main` & 작업 진행
+    - 작업 끝나면 `git checkout A_branch`
+    - `git stash apply`
+
+  #### Stash 관련 명령어
+    - `git stash list` : stash 목록 확인
+    - `git stash apply` : 가장 최근에 저장한 작업 불러오기
+        - `git stash apply [stash 이름]` : 해당 stash 불러오기 (ex. stash@[2])
+        - `git stash apply --index` : Staged 상태로 복원
+    - `git stash drop` : 가장 최근에 저장한 작업 삭제
+        - `git stash apply [stash 이름]` : 해당 stash 삭제 (ex. stash@[2])
+        - `git stash pop` : **apply + drop**
+    - `git stash show -p | git apply -R` : stash 되돌리기 (가장 최근에 저장한 작업으로 패치 만들고 거꾸로 적용)
+
+    
